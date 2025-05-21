@@ -39,8 +39,10 @@ function get_runner_token () {
             exit 1
         fi
     else
-        if [[ -p "/tmp/runner_token" ]]; then
-            runner_token_=$(cat /tmp/runner_token)
+        if [[ -p "/var/run/secrets/runner_token" || -f "/var/run/secrets/runner_token" ]]; then
+            	echo "here"
+		runner_token_=$(cat /var/run/secrets/runner_token)
+		echo "RUNNER TOKEN: $runner_token"
         fi
         if [[ -z "$runner_token_" ]]; then
             echo "No runner_token or github_token provided"
